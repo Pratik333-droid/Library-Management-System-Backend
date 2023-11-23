@@ -58,8 +58,12 @@ router.post('/create', async function(req, res)
 
 })
 
+//when the admin tries to update the book info
 router.put('/:bookid', async function(req, res)
 {
+    if (!req.session.authorized)
+    res.status(401).send('Unauthorized! Only admins can update books.')
+
     try
     {
         if(req.body.title && req.body.author && req.body.published_year && req.body.category)
@@ -85,8 +89,13 @@ router.put('/:bookid', async function(req, res)
 
 })
 
+//when an admin tries to delete the book
 router.delete('/:bookid', async function(req, res)
 {
+
+    if(!req.session.authorized)
+    return res.status(401).send('Unauthorized. Only admins can delete book records.')
+
     try
     {
         const deleted_book = await Books.findByIdAndDelete(req.params.bookid)
@@ -103,6 +112,7 @@ router.delete('/:bookid', async function(req, res)
     }
 })
 
+//when anyone tries to view all the books available
 router.get('/', async function(req, res)
 {
     try

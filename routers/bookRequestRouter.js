@@ -144,7 +144,7 @@ router.post('/return', async function(req, res)
         if (fine_object)
         fine_paid = fine_object.fine_paid
 
-        const fine_to_be_paid = fine_charged - fine_paid
+        let fine_to_be_paid = fine_charged - fine_paid
 
         if (fine_to_be_paid > 0)
         return res.status(400).send('Clear the fine first to proceed further')

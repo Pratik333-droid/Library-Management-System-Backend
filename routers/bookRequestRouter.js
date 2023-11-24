@@ -42,7 +42,14 @@ router.get('/pending-requests', async function(req, res)
 
     try
     {
-        const book_requests = await BookRequests.find({is_verified: false})
+        const user_id = req.body.user_id
+        
+        if (user_id)
+        var book_requests = await BookRequests.find({is_verified: false, user_id: user_id})
+        
+        else
+        var book_requests = await BookRequests.find({is_verified: false})
+        
         return res.status(200).send(book_requests)
 
     }
@@ -79,7 +86,14 @@ router.get('/verified-requests', async function(req, res)
 
     try
     {
-        const book_requests = await BookRequests.find({is_verified: true})
+        const user_id = req.body.user_id
+        
+        if (user_id)
+        var book_requests = await BookRequests.find({is_verified: true, user_id: user_id})
+        
+        else
+        var book_requests = await BookRequests.find({is_verified: true})
+        
         return res.status(200).send(book_requests)
         
     }
@@ -136,6 +150,10 @@ router.post('/return', async function(req, res)
         
         //check if the user has some fine to pay. use the same function to calc the fine amount in the frnt end as well
         let fine_charged = Math.ceil((new Date() - bookRequest.to_be_returned_by)/MS_PER_DAY)*FINE_PER_DAY
+        
+        if (fine_charged < 0)
+        fine_charged = 0
+        
         let fine_paid = 0
         
         //see if the user has already paid fine
@@ -143,21 +161,19 @@ router.post('/return', async function(req, res)
         
         if (fine_object)
         fine_paid = fine_object.fine_paid
-
+    
         let fine_to_be_paid = fine_charged - fine_paid
 
         if (fine_to_be_paid > 0)
         return res.status(400).send('Clear the fine first to proceed further')
         
-        if (fine_to_be_paid < 0)
-        fine_to_be_paid = 0
 
         //increase the book quantity by one and decrease the total books taken by the user by one
         await Books.findByIdAndUpdate(book_id, {$inc: {quantity: 1}})
         await User.findByIdAndUpdate(user_id, {$inc: {total_books_taken: -1}})
 
         //now delete the request from the bookrequest table and record it to transaction history table.
-        await History.create({user_id: user_id, book_id: book_id, issued_on: bookRequest.verified_on, to_be_returned_on: bookRequest.to_be_returned_by, fine_charged: fine_amount})
+        await History.create({user_id: user_id, book_id: book_id, issued_on: bookRequest.verified_on, to_be_returned_on: bookRequest.to_be_returned_by, fine_charged: fine_paid})
         await BookRequests.findOneAndDelete({user_id: user_id, book_id: book_id})
 
         return res.status(200).send('Book returned successfully.')

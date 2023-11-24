@@ -80,6 +80,9 @@ router.put('/:userid', async function (req, res)
 {
     try
     {   
+        if (!req.session || !req.session.user)
+        return res.status(401).send('Unauthorized.')
+    
         //when one user tries to update the profile of the other user.
         if (req.params.userid !== req.session.user._id)    
         return res.status(401).send('You cant update the profile of other user')

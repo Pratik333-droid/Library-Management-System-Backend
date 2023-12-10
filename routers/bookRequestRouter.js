@@ -20,11 +20,6 @@ router.get('/pending-requests', async function(req, res)
     return res.status(401).send('unauthorized access')
     //admins can view all the book requests while ordinary users can only view their requests.
 
-    console.log(`req.session.user = ${req.session.user}`)
-    console.log(`req.session.user._id = ${req.session.user._id}`)
-    console.log(`req.session.user._id = ${req.session.user._id.toString()}`)
-
-    console.log(`req.session.authorized = ${req.session.authorized}`)
     if (!req.session.authorized)
     {
         try
@@ -305,7 +300,6 @@ router.post('/:bookid', async function (req, res)
     }
     catch(err)
     {
-        console.log(`err = ${err}`)
         return res.status(500).send(err.message)
     }
 })

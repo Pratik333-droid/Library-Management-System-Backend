@@ -69,9 +69,9 @@ router.put('/:bookid', async function(req, res)
         if(req.body.title && req.body.author && req.body.published_year && req.body.category)
         {
             // const new_book = {"title": req.body.title, "author": req.body.author, "published_year": req.body.published_year}
-            console.log(`req.body = ${req.body}`)
+            // console.log(`req.body = ${req.body}`)
             //req.body = [object Object]
-            console.log(`req.body = ${JSON.stringify(req.body)}`)
+            // console.log(`req.body = ${JSON.stringify(req.body)}`)
             // req.body = {"title":"Everything is F**ked","author":"Mark Manson","published_year":2012,"category":"self-help"}
             // const book = req.book
             await Books.findByIdAndUpdate(req.params.bookid, req.body)
@@ -118,7 +118,6 @@ router.get('/', async function(req, res)
     try
     {
         const books = await Books.find({})
-        console.log(`books = ${books} and its type is ${typeof books}`)
         return res.status(200).json({length: books.length, data: books})
 
     }
@@ -134,7 +133,6 @@ router.get('/:bookid', async function(req, res)
     try
     {
         // const book = await Books.findById(req.params.bookid)
-        console.log(`req.book = ${req.book}`)
         return res.status(200).json({book: req.book})
     }
     catch(err)

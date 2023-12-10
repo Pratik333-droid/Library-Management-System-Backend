@@ -28,7 +28,6 @@ router.param('userid', async function (req, res, next, userid)
 //the following api function creates user.
 router.post('/', async function(req, res)
 {
-    console.log(`req body = ${JSON.stringify(req.body)}`)
     if (!req.session || (req.body.is_admin && !req.session.authorized)) //the first condition ensures no error when the unauthorized user makes the request.
     return res.status(400).send('You are not authorized to create admin.')
 
@@ -118,8 +117,6 @@ router.post('/login', async function (req, res)
         {
             var user = await User.find({email: email_or_ph})
             user = user[0]
-            console.log(`user = ${user}`)
-
         }
         catch(err)
         {
@@ -134,8 +131,6 @@ router.post('/login', async function (req, res)
             var user = await User.find({ph_no: email_or_ph})
             user = user[0]
             // user = JSON.stringify(user)
-            console.log(`user.name = ${user.full_name}`)
-            console.log(`typeof user = ${typeof user}`)
         
         }
         catch(err)
@@ -152,11 +147,6 @@ router.post('/login', async function (req, res)
         {
             if (err)
             {
-                console.log(`erroruwa = ${err}`)
-                console.log(`user.password  = ${user.password}`)
-                console.log(`user.ph_no  = ${user['ph_no']}`)
-                console.log(`user.email  = ${user['email']}`)
-                console.log(`user = ${user}`)
                 return res.status(400).send('Invalid password')
             }
             else
@@ -164,9 +154,7 @@ router.post('/login', async function (req, res)
                 if (!result)
                 return res.status(400).send('Incorrect password.')
 
-                console.log(`result = ${result}`)
                 req.session.user = user
-                console.log(`req.session.user._id = ${req.session.user._id}`)
                 if (user.is_admin)
                 req.session.authorized = true
                 return res.status(200).send('Login successful')
@@ -187,10 +175,14 @@ router.post('/logout', async function(req, res)
 {
     if (req.session.user)
     {
-        if (req.session.authorized)
-        req.session.authorized = false
-        req.session.user = false
-        return res.status(200).send('Successfully logged out.')
+        req.session.destroy(function (err)
+        {
+            if (err)
+            return res.status(500).send('Cant log you out')
+            
+            else
+            return res.status(200).send('Successfully logged out')
+        })
     }
     else
     return res.status(400).send('User is not logged in to perform logout operation.')

@@ -1,0 +1,295 @@
+{
+    "info": {
+        "_postman_id": "2325e742-4ebe-4a19-ba1e-081a6af52f91",
+        "name": "Library Management System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "create new book",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://e-library-yg97.onrender.com/book/create",
+                    "path": [
+                        "book",
+                        "create"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "e-library-yg97",
+                        "onrender",
+                        "com"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"title\": \"The Rudest Book Everr\",\n  \"author\": \"Swetabh Gangwar\",\n  \"published_year\": 2012,\n  \"quantity\": 10,\n  \"only_for_admins\": true,\n  \"category\": \"self help\"\n}"
+                }
+            }
+        },
+        {
+            "name": "admin login",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://e-library-yg97.onrender.com/user/login",
+                    "path": [
+                        "user",
+                        "login"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "e-library-yg97",
+                        "onrender",
+                        "com"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\"email_or_ph\": \"pratikdahal05@gmail.com\", \"password\": \"Pratik Dahal\"}"
+                }
+            }
+        },
+        {
+            "name": "view Book request ordinary user",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/6533d48bda21296e59bbcd6a",
+                    "path": [
+                        "book-request",
+                        "6533d48bda21296e59bbcd6a"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                }
+            }
+        },
+        {
+            "name": "Book request admin",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/655e29094a46e78c3c36d8b2",
+                    "path": [
+                        "book-request",
+                        "655e29094a46e78c3c36d8b2"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                }
+            }
+        },
+        {
+            "name": "user login",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://e-library-yg97.onrender.com/user/login",
+                    "path": [
+                        "user",
+                        "login"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "e-library-yg97",
+                        "onrender",
+                        "com"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\"email_or_ph\": \"pragyadahal@gmail.com\", \"password\": \"Pragya\"}"
+                }
+            }
+        },
+        {
+            "name": "view pending book request",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/pending-requests",
+                    "path": [
+                        "book-request",
+                        "pending-requests"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                }
+            }
+        },
+        {
+            "name": "view login status",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "https://e-library-yg97.onrender.com/user/view",
+                    "path": [
+                        "user",
+                        "view"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "e-library-yg97",
+                        "onrender",
+                        "com"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "logout",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://e-library-yg97.onrender.com/user/logout",
+                    "path": [
+                        "user",
+                        "logout"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "e-library-yg97",
+                        "onrender",
+                        "com"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "delete pending request",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/655e39d6a3d5de6cf70da1a4",
+                    "path": [
+                        "book-request",
+                        "655e39d6a3d5de6cf70da1a4"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                }
+            }
+        },
+        {
+            "name": "verify request",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/verification",
+                    "path": [
+                        "book-request",
+                        "verification"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"user_id\": \"6550396c8e0846aeda6dac9e\",\n  \"book_id\": \"6549f3db34961088ad2c12ca\"\n}"
+                }
+            }
+        },
+        {
+            "name": "view verified requests",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/verified-requests",
+                    "path": [
+                        "book-request",
+                        "verified-requests"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                }
+            }
+        },
+        {
+            "name": "book request user",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:3500/book-request/6549f3db34961088ad2c12ca",
+                    "path": [
+                        "book-request",
+                        "6549f3db34961088ad2c12ca"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "3500"
+                }
+            }
+        },
+        {
+            "name": "return book",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://e-library-yg97.onrender.com/book-request/return",
+                    "path": [
+                        "book-request",
+                        "return"
+                    ],
+                    "protocol": "https",
+                    "host": [
+                        "e-library-yg97",
+                        "onrender",
+                        "com"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"user_id\": \"6550396c8e0846aeda6dac9e\",\n  \"book_id\": \"6549f3db34961088ad2c12ca\"\n}"
+                }
+            }
+        }
+    ]
+}
